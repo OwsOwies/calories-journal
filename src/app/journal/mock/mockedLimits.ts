@@ -1,8 +1,8 @@
 import { UserLimits } from '../models';
 
 export const mockedLimits: UserLimits = {
-    calories: 3000,
-    carbohydrates: 300,
+    calories: 1000,
+    carbohydrates: 100,
     fat: 100,
-    proteins: 200,
+    proteins: 100,
 };
