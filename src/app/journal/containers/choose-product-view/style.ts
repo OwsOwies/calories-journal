@@ -20,7 +20,7 @@ const styles = EStyleSheet.create({
         alignSelf: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
-        height: '93%',
+        height: '94%',
         justifyContent: 'space-between',
         width: '100%',
     },

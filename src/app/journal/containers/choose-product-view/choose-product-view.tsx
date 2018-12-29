@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import { ActionDispatcher } from '../../../store';
 import { AppState } from '../../../store';
 import { ChooseProductForWeighting, ChooseRecipeForWeighting } from '../../actions';
+import { AdBanner } from '../../components/ad-banner/ad-banner';
 import { recipe } from '../../mock/mockedProducts';
 import { Product, Recipe } from '../../models';
 import { getProducts } from '../../selectors';
@@ -78,7 +79,7 @@ class ChooseProductView extends Component<Props, State> {
     renderCommercialBanner = (): Element => {
         return (
             <View style={styles.commercialBanner}>
-                <Text>Tutaj miejsce na reklamę</Text>
+                <AdBanner />
             </View>
         );
     };

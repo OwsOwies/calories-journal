@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
-import { Card, CardItem } from 'native-base';
 import { Icon } from 'native-base';
+import { Card, CardItem } from 'native-base';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ import { formatDate } from '../../../shared';
 import { AppState } from '../../../store';
 import { ActionDispatcher } from '../../../store';
 import { ShowChooseProductModal, ShowLimitsModal, ShowNewMealOverlay } from '../../actions';
+import { AdBanner } from '../../components/ad-banner/ad-banner';
 import { Day, Meal } from '../../models';
 import { getDateJournal } from '../../selectors';
 
@@ -64,7 +65,7 @@ class JournalView extends Component<Props, State> {
     renderCommercialBanner = (): Element => {
         return (
             <View style={styles.commercialBanner}>
-                <Text>Tutaj miejsce na reklamę</Text>
+                <AdBanner />
             </View>
         );
     };
