@@ -1,6 +1,6 @@
 import { Action } from '../store';
 
-import { Product, ProductEntity } from './models';
+import { Product, ProductEntity, Recipe } from './models';
 
 export enum JournalActionTypes {
     SHOW_ADD_MEAL_OVERLAY = '[Journal] Show Add Meal Overlay',
@@ -9,7 +9,9 @@ export enum JournalActionTypes {
     ADD_TO_MEAL = '[Journal] Add To Meal',
     REMOVE_FROM_MEAL = '[Journal] Remove From Meal',
     CHOOSE_PRODUCT_FOR_WEIGHTING = '[Journal] Choose Product For Weighting',
+    CHOOSE_RECIPE_FOR_WEIGHTING = '[Journal] Choose Recipe For Weighting',
     SHOW_WEIGHTING_MODAL = '[Journal] Show Weighting Modal',
+    FINISH_WEIGHTING = '[Journal] Finish Weighting',
 }
 
 export class ShowNewMealOverlay implements Action {
@@ -51,8 +53,19 @@ export class ChooseProductForWeighting implements Action<Product> {
     }
 }
 
+export class ChooseRecipeForWeighting implements Action<Recipe> {
+    readonly type = JournalActionTypes.CHOOSE_RECIPE_FOR_WEIGHTING;
+    constructor(public payload: Recipe) {
+        this.payload = payload;
+    }
+}
+
 export class ShowWeightingModal implements Action {
     readonly type = JournalActionTypes.SHOW_WEIGHTING_MODAL;
+}
+
+export class FinishWeighting implements Action {
+    readonly type = JournalActionTypes.FINISH_WEIGHTING;
 }
 
 export type AuthAction =
@@ -62,4 +75,6 @@ export type AuthAction =
     | ShowChooseProductModal
     | ShowNewMealOverlay
     | ChooseProductForWeighting
-    | ShowWeightingModal;
+    | ShowWeightingModal
+    | ChooseRecipeForWeighting
+    | FinishWeighting;

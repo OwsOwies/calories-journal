@@ -13,4 +13,8 @@ export const getProducts = createSelector(getJournalState, prop('products'));
 
 export const getChoosenMealName = createSelector(getJournalState, prop('choosenMealName'));
 
+export const isWeightingProduct = createSelector(getJournalState, prop('isWeightingProduct'));
+
 export const getWeightingProduct = createSelector(getJournalState, prop('weightingProduct'));
+
+export const getWeightingRecipe = createSelector(getJournalState, prop('weightingRecipe'));

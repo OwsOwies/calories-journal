@@ -37,9 +37,12 @@ const showChooseProductModal: Epic = action$ =>
         ignoreElements(),
     );
 
-const chooseProduct: Epic = action$ =>
+const choosenForWeighting: Epic = action$ =>
     action$.pipe(
-        ofType(JournalActionTypes.CHOOSE_PRODUCT_FOR_WEIGHTING),
+        ofType(
+            JournalActionTypes.CHOOSE_PRODUCT_FOR_WEIGHTING,
+            JournalActionTypes.CHOOSE_RECIPE_FOR_WEIGHTING,
+        ),
         tap(() => Navigation.dismissAllModals()),
         mapTo(new ShowWeightingModal()),
     );
@@ -60,7 +63,7 @@ const showWeightingModal: Epic = action$ =>
 
 const closeWeightingModal: Epic = action$ =>
     action$.pipe(
-        ofType(JournalActionTypes.ADD_TO_MEAL),
+        ofType(JournalActionTypes.FINISH_WEIGHTING),
         tap(() => Navigation.dismissAllModals()),
         ignoreElements(),
     );
@@ -69,7 +72,7 @@ export const journalEpic = combineEpics(
     showAddMealOverlay,
     addMealToJournal,
     showChooseProductModal,
-    chooseProduct,
+    choosenForWeighting,
     showWeightingModal,
     closeWeightingModal,
 );

@@ -3,21 +3,25 @@ import { Map } from 'immutable';
 import { formatDate } from '../shared/utils';
 
 import { AuthAction, JournalActionTypes } from './actions';
-import { mockedProducts } from './mock/mockedProducts';
-import { Day, Meal, Product } from './models';
+import { mockedProducts, recipe } from './mock/mockedProducts';
+import { Day, Meal, Product, Recipe } from './models';
 
 export interface JournalState {
     dateJournal: Map<string, Day>; // date is key
+    isWeightingProduct: boolean;
     products: Product[];
     choosenMealName: string;
     weightingProduct: Product;
+    weightingRecipe: Recipe;
 }
 
 const initialState: JournalState = {
     choosenMealName: '',
     dateJournal: Map(),
+    isWeightingProduct: false,
     products: mockedProducts,
     weightingProduct: mockedProducts[0],
+    weightingRecipe: recipe,
 };
 
 export function reducer(state: JournalState = initialState, action: AuthAction): JournalState {
@@ -52,7 +56,15 @@ export function reducer(state: JournalState = initialState, action: AuthAction):
         case JournalActionTypes.CHOOSE_PRODUCT_FOR_WEIGHTING:
             return {
                 ...state,
+                isWeightingProduct: true,
                 weightingProduct: action.payload,
+            };
+
+        case JournalActionTypes.CHOOSE_RECIPE_FOR_WEIGHTING:
+            return {
+                ...state,
+                isWeightingProduct: false,
+                weightingRecipe: action.payload,
             };
 
         default:

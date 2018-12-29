@@ -1,4 +1,4 @@
-import { Product } from '../models';
+import { Product, Recipe } from '../models';
 
 export const mockedProducts: Product[] = [
     {
@@ -25,4 +25,22 @@ export const mockedProducts: Product[] = [
         name: 'Ryż',
         proteins: 2.7,
     },
+    {
+        calories: 131,
+        carbohydrates: 25,
+        fat: 1.1,
+        id: 4,
+        name: 'Makaron',
+        proteins: 5,
+    },
+    {
+        calories: 131,
+        carbohydrates: 0,
+        fat: 15,
+        id: 5,
+        name: 'Wołowina',
+        proteins: 26,
+    },
 ];
+
+export const recipe: Recipe = { items: [mockedProducts[0], mockedProducts[2]], name: 'obiad' };

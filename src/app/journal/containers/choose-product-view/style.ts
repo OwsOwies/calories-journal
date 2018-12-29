@@ -1,6 +1,10 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
     commercialBanner: {
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -16,7 +20,7 @@ const styles = EStyleSheet.create({
         alignSelf: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
-        height: '100%',
+        height: '93%',
         justifyContent: 'space-between',
         width: '100%',
     },

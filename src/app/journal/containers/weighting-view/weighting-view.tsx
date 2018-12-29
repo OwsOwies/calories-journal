@@ -6,30 +6,47 @@ import { Dispatch } from 'redux';
 
 import { AppState } from '../../../store';
 import { ActionDispatcher } from '../../../store';
-import { AddToMeal } from '../../actions';
-import { Product, ProductEntity } from '../../models';
-import { getChoosenMealName, getWeightingProduct } from '../../selectors';
+import { AddToMeal, FinishWeighting } from '../../actions';
+import { Product, ProductEntity, Recipe } from '../../models';
+import {
+    getChoosenMealName,
+    getWeightingProduct,
+    getWeightingRecipe,
+    isWeightingProduct,
+} from '../../selectors';
 
 import styles from './style';
 
 interface Props {
     choosenMealName: string;
+    isWeightingProduct: boolean;
     weightingProduct: Product;
+    weightingRecipe: Recipe;
     addToMeal: ActionDispatcher<AddToMeal>;
+    finishWeighting: ActionDispatcher<FinishWeighting>;
 }
 
 interface State {
     readonly count: number;
+    readonly currentProduct: Product;
+    readonly currentProductIndex: number;
 }
 
 class WeightingView extends Component<Props, State> {
-    readonly state = {
-        count: 0,
-    };
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            count: 0,
+            currentProduct: this.props.isWeightingProduct
+                ? this.props.weightingProduct
+                : this.props.weightingRecipe.items[0],
+            currentProductIndex: 0,
+        };
+    }
 
     addToMeal = () => {
         this.props.addToMeal({
-            ...this.props.weightingProduct,
+            ...this.state.currentProduct,
             count: this.state.count,
             mealName: this.props.choosenMealName,
         });
@@ -42,11 +59,41 @@ class WeightingView extends Component<Props, State> {
     getCurrentValue = (constValue: number) =>
         Math.round((constValue / 100) * this.state.count * 100) / 100;
 
+    performAction = () => {
+        this.addToMeal();
+        const recipeItems = this.props.weightingRecipe.items;
+        if (
+            this.props.isWeightingProduct ||
+            this.state.currentProductIndex === recipeItems.length - 1
+        ) {
+            this.props.finishWeighting();
+        } else {
+            const nextIndex = this.state.currentProductIndex + 1;
+            this.setState({
+                count: 0,
+                currentProduct: recipeItems[nextIndex],
+                currentProductIndex: nextIndex,
+            });
+        }
+    };
+
+    getButtonLabel = (): string => {
+        const recipeItems = this.props.weightingRecipe.items;
+        if (
+            this.props.isWeightingProduct ||
+            this.state.currentProductIndex === recipeItems.length - 1
+        ) {
+            return 'Dodaj i zamknij';
+        } else {
+            return 'Dodaj do posiłku';
+        }
+    };
+
     render(): JSX.Element {
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.text}>{this.props.weightingProduct.name}</Text>
+                    <Text style={styles.text}>{this.state.currentProduct.name}</Text>
                     <Text style={styles.text}>{this.props.choosenMealName}</Text>
                 </View>
                 <Item regular>
@@ -71,34 +118,32 @@ class WeightingView extends Component<Props, State> {
                         </View>
                         <View>
                             <Text style={styles.cell}>
-                                {this.getCurrentValue(this.props.weightingProduct.calories)} kcal
+                                {this.getCurrentValue(this.state.currentProduct.calories)} kcal
                             </Text>
                             <Text style={styles.cell}>
-                                {this.getCurrentValue(this.props.weightingProduct.proteins)} g
+                                {this.getCurrentValue(this.state.currentProduct.proteins)} g
                             </Text>
                             <Text style={styles.cell}>
-                                {this.getCurrentValue(this.props.weightingProduct.carbohydrates)} g
+                                {this.getCurrentValue(this.state.currentProduct.carbohydrates)} g
                             </Text>
                             <Text style={{ ...styles.cell, marginBottom: 10 }}>
-                                {this.getCurrentValue(this.props.weightingProduct.fat)} g
+                                {this.getCurrentValue(this.state.currentProduct.fat)} g
                             </Text>
                         </View>
                         <View>
                             <Text style={styles.cell}>
-                                {this.props.weightingProduct.calories} kcal
+                                {this.state.currentProduct.calories} kcal
                             </Text>
+                            <Text style={styles.cell}>{this.state.currentProduct.proteins} g</Text>
                             <Text style={styles.cell}>
-                                {this.props.weightingProduct.proteins} g
+                                {this.state.currentProduct.carbohydrates} g
                             </Text>
-                            <Text style={styles.cell}>
-                                {this.props.weightingProduct.carbohydrates} g
-                            </Text>
-                            <Text style={styles.cell}>{this.props.weightingProduct.fat} g</Text>
+                            <Text style={styles.cell}>{this.state.currentProduct.fat} g</Text>
                         </View>
                     </View>
                 </Card>
-                <Button primary style={styles.button} onPress={this.addToMeal}>
-                    <Text>Dodaj do posiłku</Text>
+                <Button primary style={styles.button} onPress={this.performAction}>
+                    <Text>{this.getButtonLabel()}</Text>
                 </Button>
             </View>
         );
@@ -107,11 +152,14 @@ class WeightingView extends Component<Props, State> {
 
 const mapStateToProps = (state: AppState) => ({
     choosenMealName: getChoosenMealName(state),
+    isWeightingProduct: isWeightingProduct(state),
     weightingProduct: getWeightingProduct(state),
+    weightingRecipe: getWeightingRecipe(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     addToMeal: (entity: ProductEntity) => dispatch(new AddToMeal(entity)),
+    finishWeighting: () => dispatch(new FinishWeighting()),
 });
 
 export default connect(
