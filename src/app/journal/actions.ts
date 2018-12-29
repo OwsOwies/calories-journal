@@ -1,6 +1,6 @@
 import { Action } from '../store';
 
-import { Product, ProductEntity, Recipe } from './models';
+import { Product, ProductEntity, Recipe, UserLimits } from './models';
 
 export enum JournalActionTypes {
     SHOW_ADD_MEAL_OVERLAY = '[Journal] Show Add Meal Overlay',
@@ -12,6 +12,8 @@ export enum JournalActionTypes {
     CHOOSE_RECIPE_FOR_WEIGHTING = '[Journal] Choose Recipe For Weighting',
     SHOW_WEIGHTING_MODAL = '[Journal] Show Weighting Modal',
     FINISH_WEIGHTING = '[Journal] Finish Weighting',
+    SHOW_LIMITS_MODAL = '[Journal] Show Limits Modal',
+    CHANGE_LIMITS = '[Journal] Change Limits',
 }
 
 export class ShowNewMealOverlay implements Action {
@@ -68,6 +70,17 @@ export class FinishWeighting implements Action {
     readonly type = JournalActionTypes.FINISH_WEIGHTING;
 }
 
+export class ShowLimitsModal implements Action {
+    readonly type = JournalActionTypes.SHOW_LIMITS_MODAL;
+}
+
+export class ChangeLimits implements Action<UserLimits> {
+    readonly type = JournalActionTypes.CHANGE_LIMITS;
+    constructor(public payload: UserLimits) {
+        this.payload = payload;
+    }
+}
+
 export type AuthAction =
     | AddMeal
     | AddToMeal
@@ -77,4 +90,6 @@ export type AuthAction =
     | ChooseProductForWeighting
     | ShowWeightingModal
     | ChooseRecipeForWeighting
-    | FinishWeighting;
+    | FinishWeighting
+    | ShowLimitsModal
+    | ChangeLimits;

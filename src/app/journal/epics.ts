@@ -68,6 +68,27 @@ const closeWeightingModal: Epic = action$ =>
         ignoreElements(),
     );
 
+const showLimitsModal: Epic = action$ =>
+    action$.pipe(
+        ofType(JournalActionTypes.SHOW_LIMITS_MODAL),
+        tap(() =>
+            Navigation.showModal({
+                component: {
+                    id: JournalViews.PROFILE_VIEW,
+                    name: JournalViews.PROFILE_VIEW,
+                },
+            }),
+        ),
+        ignoreElements(),
+    );
+
+const closeLimitsModal: Epic = action$ =>
+    action$.pipe(
+        ofType(JournalActionTypes.CHANGE_LIMITS),
+        tap(() => Navigation.dismissAllModals()),
+        ignoreElements(),
+    );
+
 export const journalEpic = combineEpics(
     showAddMealOverlay,
     addMealToJournal,
@@ -75,4 +96,6 @@ export const journalEpic = combineEpics(
     choosenForWeighting,
     showWeightingModal,
     closeWeightingModal,
+    showLimitsModal,
+    closeLimitsModal,
 );

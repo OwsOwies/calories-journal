@@ -3,8 +3,9 @@ import { Map } from 'immutable';
 import { formatDate } from '../shared/utils';
 
 import { AuthAction, JournalActionTypes } from './actions';
+import { mockedLimits } from './mock/mockedLimits';
 import { mockedProducts, recipe } from './mock/mockedProducts';
-import { Day, Meal, Product, Recipe } from './models';
+import { Day, Meal, Product, Recipe, UserLimits } from './models';
 
 export interface JournalState {
     dateJournal: Map<string, Day>; // date is key
@@ -13,12 +14,14 @@ export interface JournalState {
     choosenMealName: string;
     weightingProduct: Product;
     weightingRecipe: Recipe;
+    limits: UserLimits;
 }
 
 const initialState: JournalState = {
     choosenMealName: '',
     dateJournal: Map(),
     isWeightingProduct: false,
+    limits: mockedLimits,
     products: mockedProducts,
     weightingProduct: mockedProducts[0],
     weightingRecipe: recipe,
@@ -65,6 +68,12 @@ export function reducer(state: JournalState = initialState, action: AuthAction):
                 ...state,
                 isWeightingProduct: false,
                 weightingRecipe: action.payload,
+            };
+
+        case JournalActionTypes.CHANGE_LIMITS:
+            return {
+                ...state,
+                limits: action.payload,
             };
 
         default:

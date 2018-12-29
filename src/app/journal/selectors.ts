@@ -18,3 +18,5 @@ export const isWeightingProduct = createSelector(getJournalState, prop('isWeight
 export const getWeightingProduct = createSelector(getJournalState, prop('weightingProduct'));
 
 export const getWeightingRecipe = createSelector(getJournalState, prop('weightingRecipe'));
+
+export const getUserLimits = createSelector(getJournalState, prop('limits'));

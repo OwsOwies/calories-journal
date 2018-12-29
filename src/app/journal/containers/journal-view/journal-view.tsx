@@ -9,7 +9,7 @@ import { Dispatch } from 'redux';
 import { formatDate } from '../../../shared';
 import { AppState } from '../../../store';
 import { ActionDispatcher } from '../../../store';
-import { ShowChooseProductModal, ShowNewMealOverlay } from '../../actions';
+import { ShowChooseProductModal, ShowLimitsModal, ShowNewMealOverlay } from '../../actions';
 import { Day, Meal } from '../../models';
 import { getDateJournal } from '../../selectors';
 
@@ -19,6 +19,7 @@ interface Props {
     dateJournal: Map<string, Day>;
     showNewMealOverlay: ActionDispatcher<ShowNewMealOverlay>;
     showChooseProductModal: ActionDispatcher<ShowChooseProductModal>;
+    showProfileView: ActionDispatcher<ShowLimitsModal>;
 }
 
 interface State {
@@ -73,6 +74,9 @@ class JournalView extends Component<Props, State> {
             <View style={styles.container}>
                 <Text>TODO tu będą paski ile limitu macro wypełniliśmy</Text>
                 {this.renderMeals()}
+                <TouchableOpacity style={styles.fab2} onPress={this.props.showProfileView}>
+                    <Icon style={styles.icon} name="body" />
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.fab} onPress={this.props.showNewMealOverlay}>
                     <Icon style={styles.icon} name="add" />
                 </TouchableOpacity>
@@ -89,6 +93,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     showChooseProductModal: (mealName: string) => dispatch(new ShowChooseProductModal(mealName)),
     showNewMealOverlay: () => dispatch(new ShowNewMealOverlay()),
+    showProfileView: () => dispatch(new ShowLimitsModal()),
 });
 
 export default connect(
