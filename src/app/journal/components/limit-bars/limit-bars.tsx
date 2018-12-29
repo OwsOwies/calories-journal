@@ -18,6 +18,8 @@ const calculateStyle = (limit: number, current: number): { width: string } => ({
     width: calculatePercentage(limit, current),
 });
 
+const round = (number: number) => Math.round(number * 100) / 100;
+
 /*tslint:disable jsx-no-multiline-js */
 export const LimitBars: SFC<Props> = props => (
     <View>
@@ -31,7 +33,7 @@ export const LimitBars: SFC<Props> = props => (
                     ]}
                 />
                 <Text style={styles.text}>
-                    {`${props.currentLimits.calories} / ${props.userLimits.calories} kcal`}
+                    {`${round(props.currentLimits.calories)} / ${props.userLimits.calories} kcal`}
                 </Text>
             </View>
         </View>
@@ -45,7 +47,7 @@ export const LimitBars: SFC<Props> = props => (
                     ]}
                 />
                 <Text style={styles.text}>
-                    {`${props.currentLimits.proteins} / ${props.userLimits.proteins} g`}
+                    {`${round(props.currentLimits.proteins)} / ${props.userLimits.proteins} g`}
                 </Text>
             </View>
         </View>
@@ -62,7 +64,9 @@ export const LimitBars: SFC<Props> = props => (
                     ]}
                 />
                 <Text style={styles.text}>
-                    {`${props.currentLimits.carbohydrates} / ${props.userLimits.carbohydrates} g`}
+                    {`${round(props.currentLimits.carbohydrates)} / ${
+                        props.userLimits.carbohydrates
+                    } g`}
                 </Text>
             </View>
         </View>
@@ -76,7 +80,7 @@ export const LimitBars: SFC<Props> = props => (
                     ]}
                 />
                 <Text style={styles.text}>
-                    {`${props.currentLimits.fat} / ${props.userLimits.fat} g`}
+                    {`${round(props.currentLimits.fat)} / ${props.userLimits.fat} g`}
                 </Text>
             </View>
         </View>
