@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { Icon } from 'native-base';
-import { Card, CardItem } from 'native-base';
+import { Button, Card, CardItem } from 'native-base';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -46,9 +46,9 @@ class JournalView extends Component<Props, State> {
             <Card key={meal.name}>
                 <View style={styles.meal}>
                     <Text>{meal.name}</Text>
-                    <TouchableOpacity style={styles.addProduct} onPress={showChooseProductModal}>
-                        <Icon style={styles.icon} name="add" />
-                    </TouchableOpacity>
+                    <Button onPress={showChooseProductModal}>
+                        <Text>Dodaj produkt</Text>
+                    </Button>
                 </View>
                 {this.renderProductEntities(meal)}
             </Card>

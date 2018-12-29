@@ -1,6 +1,6 @@
 import { Button, Card, CardItem, Icon, Input, Item, Text } from 'native-base';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -33,6 +33,10 @@ interface State {
 }
 
 class WeightingView extends Component<Props, State> {
+    // tslint:disable no-any
+    _interval: any;
+    _inputRef: Input | null = null;
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -42,6 +46,10 @@ class WeightingView extends Component<Props, State> {
                 : this.props.weightingRecipe.items[0],
             currentProductIndex: 0,
         };
+    }
+
+    componentWillUnmount(): void {
+        clearInterval(this._interval);
     }
 
     addToMeal = () => {
@@ -77,6 +85,14 @@ class WeightingView extends Component<Props, State> {
         }
     };
 
+    simulateInput = () => {
+        this._interval = setInterval(this.incrementCount, 3000);
+    };
+
+    incrementCount = () => {
+        this.setState({ count: this.state.count + 10 });
+    };
+
     getButtonLabel = (): string => {
         const recipeItems = this.props.weightingRecipe.items;
         if (
@@ -94,13 +110,16 @@ class WeightingView extends Component<Props, State> {
             <View style={styles.container}>
                 <View>
                     <Text style={styles.text}>{this.state.currentProduct.name}</Text>
-                    <Text style={styles.text}>{this.props.choosenMealName}</Text>
+                    <TouchableWithoutFeedback onPress={this.simulateInput} style={styles.text}>
+                        <Text style={styles.text}>{this.props.choosenMealName}</Text>
+                    </TouchableWithoutFeedback>
                 </View>
                 <Item regular>
                     <Input
                         placeholder="0"
                         keyboardType="numeric"
                         onChangeText={this.onInputChange}
+                        value={this.state.count.toString()}
                     />
                 </Item>
                 <Card>
