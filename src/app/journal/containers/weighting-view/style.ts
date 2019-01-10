@@ -9,7 +9,13 @@ const styles = EStyleSheet.create({
     cell: {
         height: 30,
         marginTop: 10,
-        textAlign: 'center',
+        textAlign: 'left',
+    },
+    cellL: {
+        height: 30,
+        width: 110,
+        marginTop: 10,
+        textAlign: 'left',
     },
     container: {
         backgroundColor: 'white',

@@ -46,8 +46,8 @@ class JournalView extends Component<Props, State> {
             <Card key={meal.name}>
                 <View style={styles.meal}>
                     <Text>{meal.name}</Text>
-                    <Button onPress={showChooseProductModal}>
-                        <Text>Dodaj produkt</Text>
+                    <Button style={styles.btn} onPress={showChooseProductModal}>
+                        <Text style={styles.btnTxt}>Dodaj produkt</Text>
                     </Button>
                 </View>
                 {this.renderProductEntities(meal)}

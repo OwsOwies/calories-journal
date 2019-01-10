@@ -24,7 +24,7 @@ const round = (number: number) => Math.round(number * 100) / 100;
 export const LimitBars: SFC<Props> = props => (
     <View>
         <View style={styles.row}>
-            <Icon name="flash" />
+            <Text style={styles.descTxt}>Kalorie</Text>
             <View style={styles.barContainer}>
                 <View
                     style={[
@@ -38,7 +38,7 @@ export const LimitBars: SFC<Props> = props => (
             </View>
         </View>
         <View style={styles.row}>
-            <Icon name="paw" />
+            <Text style={styles.descTxt}>Białko</Text>
             <View style={styles.barContainer}>
                 <View
                     style={[
@@ -52,7 +52,7 @@ export const LimitBars: SFC<Props> = props => (
             </View>
         </View>
         <View style={styles.row}>
-            <Icon name="nutrition" />
+            <Text style={styles.descTxt}>Węglowodany</Text>
             <View style={styles.barContainer}>
                 <View
                     style={[
@@ -71,7 +71,7 @@ export const LimitBars: SFC<Props> = props => (
             </View>
         </View>
         <View style={styles.row}>
-            <Icon name="color-filter" />
+            <Text style={styles.descTxt}>Tłuszcze</Text>
             <View style={styles.barContainer}>
                 <View
                     style={[

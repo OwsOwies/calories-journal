@@ -88,11 +88,11 @@ class ChooseProductView extends Component<Props, State> {
         return (
             <View>
                 <View style={styles.buttons}>
-                    <Button onPress={this.showProducts}>
-                        <Text>Produkty</Text>
+                    <Button style={styles.prodBttn} onPress={this.showProducts}>
+                        <Text style={styles.btnTxt}>Produkty</Text>
                     </Button>
-                    <Button onPress={this.showRecipes}>
-                        <Text>Szablony</Text>
+                    <Button style={styles.templBttn} onPress={this.showRecipes}>
+                        <Text style={styles.btnTxt}>Szablony</Text>
                     </Button>
                 </View>
                 <View style={styles.content}>

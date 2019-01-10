@@ -1,5 +1,6 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+const teal = '#39CCCC';
 const styles = EStyleSheet.create({
     addProduct: {
         alignItems: 'center',
@@ -52,22 +53,34 @@ const styles = EStyleSheet.create({
         color: 'white',
     },
     meal: {
+        marginTop: 10,
         alignItems: 'center',
         backgroundColor: 'white',
         flexDirection: 'row',
         height: 45,
+        width: '100%',
         justifyContent: 'space-between',
         marginBottom: 10,
         marginLeft: 5,
-        marginRight: 5,
         paddingLeft: 15,
-        position: 'relative',
-        width: '100%',
+        paddingRight: 20,
+        position: 'relative'
+    },
+    btn: {
+        color: '#0074D9'
+    },
+    btnTxt: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        color: 'white'
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
+        borderColor: 'grey',
+        borderTopWidth: 1,
+        borderRadius: 1
     },
 });
 

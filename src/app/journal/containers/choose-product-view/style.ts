@@ -1,9 +1,29 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+const teal = '#39CCCC';
 const styles = EStyleSheet.create({
     buttons: {
         flexDirection: 'row',
         justifyContent: 'center',
+        marginRight: 100,
+        marginLeft: 100,
+    },
+    prodBttn: {
+        marginTop: 2,
+        marginRight: 20,
+        width: '50%',
+        justifyContent: 'center',
+        borderRadius: 1
+    },
+    btnTxt: {
+        color: 'white'
+    },
+    templBttn: {
+        marginTop: 2,
+        marginLeft: 20,
+        width: '50%',
+        justifyContent: 'center',
+        borderRadius: 1
     },
     commercialBanner: {
         alignItems: 'center',
@@ -11,7 +31,7 @@ const styles = EStyleSheet.create({
         borderColor: 'black',
         borderWidth: 5,
         bottom: 0,
-        height: 60,
+        height: 100,
         justifyContent: 'center',
         position: 'absolute',
         width: '100%',

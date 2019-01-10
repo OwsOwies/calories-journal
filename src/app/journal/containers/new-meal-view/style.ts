@@ -16,6 +16,7 @@ const styles = EStyleSheet.create({
         width: '100%',
     },
     title: {
+        marginTop: 22,
         alignSelf: 'center',
     },
 });

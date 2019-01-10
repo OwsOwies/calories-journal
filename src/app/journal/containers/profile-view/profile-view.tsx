@@ -71,40 +71,44 @@ class ProfileView extends Component<Props, State> {
                 <Text>Twoje limity</Text>
                 <Form>
                     <Item inlineLabel>
-                        <Label>Kalorie</Label>
-                        <Input
+                        <Label style={styles.labelStyle}>Kalorie</Label>
+                        <Input 
+                            style={styles.inputStyle}
                             placeholder={this.props.limits.calories.toString()}
                             keyboardType="numeric"
                             onChangeText={this.onCaloriesChange}
                         />
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Białko</Label>
+                        <Label style={styles.labelStyle}>Białko</Label>
                         <Input
+                            style={styles.inputStyle}
                             placeholder={this.props.limits.proteins.toString()}
                             keyboardType="numeric"
                             onChangeText={this.onProteinChange}
                         />
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Węglowodany</Label>
+                        <Label style={styles.labelStyle}>Węglowodany</Label>
                         <Input
+                            style={styles.inputStyle}
                             placeholder={this.props.limits.carbohydrates.toString()}
                             keyboardType="numeric"
                             onChangeText={this.onCarbohydratesChange}
                         />
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Tłuszcze</Label>
+                        <Label style={styles.labelStyle}>Tłuszcze</Label>
                         <Input
+                            style={styles.inputStyle}
                             placeholder={this.props.limits.fat.toString()}
                             keyboardType="numeric"
                             onChangeText={this.onFatChange}
                         />
                     </Item>
                 </Form>
-                <Button onPress={this.save}>
-                    <Text>Zapisz i zamknij</Text>
+                <Button onPress={this.save} style={styles.btn}>
+                    <Text style={styles.btnText}>Zapisz i zamknij</Text>
                 </Button>
             </View>
         );

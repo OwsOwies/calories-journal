@@ -1,18 +1,29 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+const barHeight = 40;
+
+const blue = 'green';
+const navy = 'grey';
+
 const styles = EStyleSheet.create({
+    descTxt: {
+        width: 110,
+        color: 'black',
+        paddingTop: 8,
+        fontWeight: 'bold'
+    },
     barContainer: {
-        backgroundColor: 'red',
+        backgroundColor: navy,
         borderColor: 'black',
-        borderRadius: 2,
-        height: 25,
+        borderRadius: 5,
+        height: barHeight,
         position: 'relative',
-        width: '90%',
+        width: '70%',
     },
     barProgress: {
-        backgroundColor: 'blue',
-        borderRadius: 2,
-        height: 25,
+        backgroundColor: blue,
+        borderRadius: 5,
+        height: barHeight,
         left: 0,
         position: 'absolute',
         top: 0,
@@ -24,11 +35,12 @@ const styles = EStyleSheet.create({
         margin: 10,
     },
     text: {
-        alignSelf: 'center',
+        alignSelf: 'center',   
         color: 'white',
         fontSize: 17,
         fontWeight: 'bold',
-        position: 'absolute',
+        textAlign: 'center',
+        marginTop: 8
     },
 });
 

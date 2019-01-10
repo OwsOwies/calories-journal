@@ -124,16 +124,16 @@ class WeightingView extends Component<Props, State> {
                 </Item>
                 <Card>
                     <CardItem header style={styles.row}>
-                        <Text />
-                        <Text>Aktualne</Text>
-                        <Text>na 100g</Text>
+                        <Text style={styles.cellL}/>
+                        <Text style={styles.cell}>Aktualne</Text>
+                        <Text style={styles.cell}>na 100g</Text>
                     </CardItem>
                     <View style={styles.row}>
                         <View>
-                            <Icon style={styles.cell} name="flash" />
-                            <Icon style={styles.cell} name="paw" />
-                            <Icon style={styles.cell} name="nutrition" />
-                            <Icon style={styles.cell} name="color-filter" />
+                            <Text style={styles.cellL}>Kalorie</Text>
+                            <Text style={styles.cellL}>Białko</Text>
+                            <Text style={styles.cellL}>Węglowodany</Text>
+                            <Text style={styles.cellL}>Tłuszcze</Text>
                         </View>
                         <View>
                             <Text style={styles.cell}>

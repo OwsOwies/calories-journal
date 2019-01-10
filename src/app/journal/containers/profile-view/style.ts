@@ -1,6 +1,12 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
+    labelStyle: {
+        width: 150
+    },
+    inputStyle: {
+        color: 'black'
+    },
     addProduct: {
         alignItems: 'center',
         backgroundColor: 'blue',
@@ -9,6 +15,9 @@ const styles = EStyleSheet.create({
         justifyContent: 'center',
         right: 15,
         width: 30,
+    },
+    label: {
+        color: 'blue'
     },
     commercialBanner: {
         alignItems: 'center',
@@ -50,6 +59,15 @@ const styles = EStyleSheet.create({
     icon: {
         alignSelf: 'center',
         color: 'white',
+    },
+    btn: {
+        marginTop: 20,
+        alignSelf: 'center',
+        width: '60%',
+        justifyContent: 'center'
+    },
+    btnText: {
+        color: 'white'
     },
     meal: {
         alignItems: 'center',
