@@ -13,17 +13,35 @@ const styles = EStyleSheet.create({
         marginRight: 20,
         width: '50%',
         justifyContent: 'center',
-        borderRadius: 1
+        borderRadius: 1,
     },
     btnTxt: {
-        color: 'white'
+        color: 'white',
+    },
+    fab: {
+        alignItems: 'center',
+        backgroundColor: 'blue',
+        borderRadius: 50,
+        bottom: 25,
+        height: 50,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 15,
+        width: 50,
+    },
+    icon: {
+        alignSelf: 'center',
+        color: 'white',
     },
     templBttn: {
         marginTop: 2,
         marginLeft: 20,
         width: '50%',
         justifyContent: 'center',
-        borderRadius: 1
+        borderRadius: 1,
+    },
+    tab: {
+        padding: 8,
     },
     commercialBanner: {
         alignItems: 'center',

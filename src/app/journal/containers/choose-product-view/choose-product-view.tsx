@@ -1,4 +1,4 @@
-import { Button, List, ListItem } from 'native-base';
+import { Button, Header, Icon, List, ListItem, Segment, Tab, Tabs, Container } from 'native-base';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -86,20 +86,15 @@ class ChooseProductView extends Component<Props, State> {
 
     render(): JSX.Element {
         return (
-            <View>
-                <View style={styles.buttons}>
-                    <Button style={styles.prodBttn} onPress={this.showProducts}>
-                        <Text style={styles.btnTxt}>Produkty</Text>
-                    </Button>
-                    <Button style={styles.templBttn} onPress={this.showRecipes}>
-                        <Text style={styles.btnTxt}>Szablony</Text>
-                    </Button>
-                </View>
-                <View style={styles.content}>
-                    {this.renderlist()}
-                    {/*this.renderCommercialBanner()*/}
-                </View>
-            </View>
+            <Container>
+                <Tabs>
+                    <Tab heading="Produkty">{this.renderProducts()}</Tab>
+                    <Tab heading="Szablony">{this.renderRecipe()}</Tab>
+                </Tabs>
+                <TouchableOpacity style={styles.fab} onPress={() => ({})}>
+                    <Icon style={styles.icon} name="add" />
+                </TouchableOpacity>
+            </Container>
         );
     }
 }
