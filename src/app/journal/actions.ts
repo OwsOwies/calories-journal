@@ -14,6 +14,8 @@ export enum JournalActionTypes {
     FINISH_WEIGHTING = '[Journal] Finish Weighting',
     SHOW_LIMITS_MODAL = '[Journal] Show Limits Modal',
     CHANGE_LIMITS = '[Journal] Change Limits',
+    SHOW_NEW_PRODUCT_MODAL = '[Journal] Show new product modal',
+    SAVE_NEW_PRODUCT = '[Journal] Save new product',
 }
 
 export class ShowNewMealOverlay implements Action {
@@ -81,6 +83,17 @@ export class ChangeLimits implements Action<UserLimits> {
     }
 }
 
+export class ShowNewProductModal implements Action {
+    readonly type = JournalActionTypes.SHOW_NEW_PRODUCT_MODAL;
+}
+
+export class SaveNewProduct implements Action<Product> {
+    readonly type = JournalActionTypes.SAVE_NEW_PRODUCT;
+    constructor(public payload: Product) {
+        this.payload = payload;
+    }
+}
+
 export type AuthAction =
     | AddMeal
     | AddToMeal
@@ -92,4 +105,6 @@ export type AuthAction =
     | ChooseRecipeForWeighting
     | FinishWeighting
     | ShowLimitsModal
-    | ChangeLimits;
+    | ChangeLimits
+    | ShowNewProductModal
+    | SaveNewProduct;

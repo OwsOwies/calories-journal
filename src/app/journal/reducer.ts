@@ -5,7 +5,7 @@ import { formatDate } from '../shared/utils';
 import { AuthAction, JournalActionTypes } from './actions';
 import { mockedLimits } from './mock/mockedLimits';
 import { mockedProducts, recipe } from './mock/mockedProducts';
-import { Day, Meal, Product, Recipe, UserLimits } from './models';
+import { Day, Product, Recipe, UserLimits } from './models';
 
 export interface JournalState {
     dateJournal: Map<string, Day>; // date is key
@@ -71,6 +71,12 @@ export function reducer(state: JournalState = initialState, action: AuthAction):
             return {
                 ...state,
                 limits: action.payload,
+            };
+
+        case JournalActionTypes.SAVE_NEW_PRODUCT:
+            return {
+                ...state,
+                products: [...state.products, action.payload],
             };
 
         default:

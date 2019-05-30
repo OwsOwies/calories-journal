@@ -1,4 +1,4 @@
-import { Button, Header, Icon, List, ListItem, Segment, Tab, Tabs, Container } from 'native-base';
+import { Container, Icon, List, ListItem, Tab, Tabs } from 'native-base';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -6,7 +6,11 @@ import { Dispatch } from 'redux';
 
 import { ActionDispatcher } from '../../../store';
 import { AppState } from '../../../store';
-import { ChooseProductForWeighting, ChooseRecipeForWeighting } from '../../actions';
+import {
+    ChooseProductForWeighting,
+    ChooseRecipeForWeighting,
+    ShowNewProductModal,
+} from '../../actions';
 import { AdBanner } from '../../components/ad-banner/ad-banner';
 import { recipe } from '../../mock/mockedProducts';
 import { Product, Recipe } from '../../models';
@@ -18,6 +22,7 @@ interface Props {
     chooseProductForWeighting: ActionDispatcher<ChooseProductForWeighting>;
     chooseRecipeForWeighting: ActionDispatcher<ChooseRecipeForWeighting>;
     products: Product[];
+    showNewProdModal: ActionDispatcher<ShowNewProductModal>;
 }
 
 interface State {
@@ -91,7 +96,7 @@ class ChooseProductView extends Component<Props, State> {
                     <Tab heading="Produkty">{this.renderProducts()}</Tab>
                     <Tab heading="Szablony">{this.renderRecipe()}</Tab>
                 </Tabs>
-                <TouchableOpacity style={styles.fab} onPress={() => ({})}>
+                <TouchableOpacity style={styles.fab} onPress={this.props.showNewProdModal}>
                     <Icon style={styles.icon} name="add" />
                 </TouchableOpacity>
             </Container>
@@ -107,6 +112,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     chooseProductForWeighting: (product: Product) =>
         dispatch(new ChooseProductForWeighting(product)),
     chooseRecipeForWeighting: (rec: Recipe) => dispatch(new ChooseRecipeForWeighting(rec)),
+    showNewProdModal: () => dispatch(new ShowNewProductModal()),
 });
 
 export default connect(

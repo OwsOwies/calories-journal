@@ -89,6 +89,27 @@ const closeLimitsModal: Epic = action$ =>
         ignoreElements(),
     );
 
+const showNewProductModal: Epic = action$ =>
+    action$.pipe(
+        ofType(JournalActionTypes.SHOW_NEW_PRODUCT_MODAL),
+        tap(() =>
+            Navigation.showModal({
+                component: {
+                    id: JournalViews.NEW_PRODUCT_VIEW,
+                    name: JournalViews.NEW_PRODUCT_VIEW,
+                },
+            }),
+        ),
+        ignoreElements(),
+    );
+
+const saveNewProduct: Epic = actions$ =>
+    actions$.pipe(
+        ofType(JournalActionTypes.SAVE_NEW_PRODUCT),
+        tap(() => Navigation.dismissModal(JournalViews.NEW_PRODUCT_VIEW)),
+        ignoreElements(),
+    );
+
 export const journalEpic = combineEpics(
     showAddMealOverlay,
     addMealToJournal,
@@ -98,4 +119,6 @@ export const journalEpic = combineEpics(
     closeWeightingModal,
     showLimitsModal,
     closeLimitsModal,
+    showNewProductModal,
+    saveNewProduct,
 );

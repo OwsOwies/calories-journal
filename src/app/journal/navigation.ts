@@ -6,6 +6,7 @@ import { AppStore } from '../store';
 import ChooseProductView from './containers/choose-product-view/choose-product-view';
 import JournalView from './containers/journal-view/journal-view';
 import NewMealView from './containers/new-meal-view/new-meal-view';
+import NewProductView from './containers/new-product-view/new-product-view';
 import ProfileView from './containers/profile-view/profile-view';
 import WeightingView from './containers/weighting-view/weighting-view';
 
@@ -15,6 +16,7 @@ export enum Views {
     CHOOSE_PRODUCT_VIEW = '[Journal] choose product view',
     WEIGHTING_VIEW = '[Journal] weighting view',
     PROFILE_VIEW = '[Journal] profile view',
+    NEW_PRODUCT_VIEW = '[Journal] new product view',
 }
 
 export const registerViews = (store: AppStore, provider: typeof Provider) => {
@@ -33,4 +35,10 @@ export const registerViews = (store: AppStore, provider: typeof Provider) => {
         store,
     );
     Navigation.registerComponentWithRedux(Views.PROFILE_VIEW, () => ProfileView, provider, store);
+    Navigation.registerComponentWithRedux(
+        Views.NEW_PRODUCT_VIEW,
+        () => NewProductView,
+        provider,
+        store,
+    );
 };
