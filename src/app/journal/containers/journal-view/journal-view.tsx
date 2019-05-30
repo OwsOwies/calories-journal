@@ -27,11 +27,13 @@ interface Props {
 
 interface State {
     readonly chosenDate: string;
+    readonly today: string;
 }
 
 class JournalView extends Component<Props, State> {
     readonly state = {
         chosenDate: formatDate(new Date()),
+        today: formatDate(new Date()),
     };
 
     // tslint:disable jsx-no-multiline-js
@@ -132,34 +134,42 @@ class JournalView extends Component<Props, State> {
                     onDateChange={this.setDate}
                     disabled={false}
                 />
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                    }}
-                >
-                    <Button
-                        info
-                        onPress={this.props.showProfileView}
-                        style={{ marginLeft: 5, marginRight: 5 }}
-                    >
-                        <Icon name="body" />
-                    </Button>
-                    <Button
-                        info
-                        onPress={this.props.showNewMealOverlay}
-                        style={{ marginLeft: 5, marginRight: 5 }}
-                    >
-                        <Icon name="add" />
-                    </Button>
-                </View>
+                {this.renderButtons()}
             </View>
         );
     };
 
+    renderButtons = (): Element => {
+        return this.state.today === this.state.chosenDate ? (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                }}
+            >
+                <Button
+                    info
+                    onPress={this.props.showProfileView}
+                    style={{ marginLeft: 5, marginRight: 5 }}
+                >
+                    <Icon name="body" />
+                </Button>
+                <Button
+                    info
+                    onPress={this.props.showNewMealOverlay}
+                    style={{ marginLeft: 5, marginRight: 5 }}
+                >
+                    <Icon name="add" />
+                </Button>
+            </View>
+        ) : (
+            <View />
+        );
+    };
+
     setDate = (date: any): void => {
-        console.log(date);
+        this.setState({ chosenDate: formatDate(date) });
     };
 
     render(): JSX.Element {
