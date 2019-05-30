@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
 
-import { Meal } from './meal';
+import { ProductEntity } from './productEntity';
 
-export type Day = Map<string, Meal>;
+export type Day = Map<string, Map<string, ProductEntity>>;

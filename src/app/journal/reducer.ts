@@ -34,7 +34,7 @@ export function reducer(state: JournalState = initialState, action: AuthAction):
                 ...state,
                 dateJournal: state.dateJournal.setIn(
                     [formatDate(new Date()), action.payload],
-                    new Meal(action.payload),
+                    Map(),
                 ),
             };
 
@@ -42,11 +42,8 @@ export function reducer(state: JournalState = initialState, action: AuthAction):
             return {
                 ...state,
                 dateJournal: state.dateJournal.setIn(
-                    [formatDate(new Date()), action.payload.mealName],
-                    state.dateJournal
-                        .get(formatDate(new Date()))!
-                        .get(action.payload.mealName)!
-                        .addEntity(action.payload),
+                    [formatDate(new Date()), action.payload.mealName, action.payload.id],
+                    action.payload,
                 ),
             };
 

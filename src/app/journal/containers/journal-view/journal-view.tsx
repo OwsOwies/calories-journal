@@ -37,29 +37,29 @@ class JournalView extends Component<Props, State> {
     // tslint:disable jsx-no-multiline-js
     renderMeals(): Element | undefined {
         const chosenDayJournal = this.props.dateJournal.get(this.state.chosenDate);
-        return chosenDayJournal && <View>{chosenDayJournal.toList().map(this.renderMeal)}</View>;
+        return chosenDayJournal && <View>{chosenDayJournal.map(this.renderMeal).toList()}</View>;
     }
 
-    renderMeal = (meal: Meal): Element => {
-        const showChooseProductModal = this.props.showChooseProductModal.bind(null, meal.name);
+    renderMeal = (v: Map<string, ProductEntity>, k: string): Element => {
+        const showChooseProductModal = this.props.showChooseProductModal.bind(null, k);
         return (
-            <Card key={meal.name}>
+            <Card key={k}>
                 <View style={styles.meal}>
-                    <Text>{meal.name}</Text>
-                    <Button style={styles.btn} onPress={showChooseProductModal}>
+                    <Text>{k}</Text>
+                    <Button rounded style={styles.btn} onPress={showChooseProductModal}>
                         <Text style={styles.btnTxt}>Dodaj produkt</Text>
                     </Button>
                 </View>
-                {this.renderProductEntities(meal)}
+                {this.renderProductEntities(v).toList()}
             </Card>
         );
     };
 
-    renderProductEntities = (meal: Meal): Element => {
-        return meal.entities.toList().map(entity => (
-            <CardItem style={styles.row}>
-                <Text>{entity.name}</Text>
-                <Text>{entity.count} g</Text>
+    renderProductEntities = (meal: Map<string, ProductEntity>): Map<string, Element> => {
+        return meal.map((v, k) => (
+            <CardItem key={k} style={styles.row}>
+                <Text>{v.name}</Text>
+                <Text>{v.count} g</Text>
             </CardItem>
         ));
     };
@@ -82,8 +82,7 @@ class JournalView extends Component<Props, State> {
         if (this.props.dateJournal.get(this.state.chosenDate)) {
             const chosenDayJournal = this.props.dateJournal.get(this.state.chosenDate)!.toList();
             currentLimits = chosenDayJournal.reduce(
-                (stats, meal) =>
-                    meal.entities.toList().reduce(this.addProductToCurrentLimit, stats),
+                (stats, meal) => meal.toList().reduce(this.addProductToCurrentLimit, stats),
                 currentLimits,
             );
         }
