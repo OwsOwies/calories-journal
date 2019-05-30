@@ -33,8 +33,6 @@ const styles = EStyleSheet.create({
         bottom: 25,
         height: 50,
         justifyContent: 'center',
-        position: 'absolute',
-        right: 15,
         width: 50,
     },
     fab2: {
@@ -44,8 +42,6 @@ const styles = EStyleSheet.create({
         bottom: 85,
         height: 50,
         justifyContent: 'center',
-        position: 'absolute',
-        right: 15,
         width: 50,
     },
     icon: {
@@ -58,29 +54,29 @@ const styles = EStyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         height: 45,
-        width: '100%',
+        width: '95%',
         justifyContent: 'space-between',
         marginBottom: 10,
         marginLeft: 5,
         paddingLeft: 15,
         paddingRight: 20,
-        position: 'relative'
+        position: 'relative',
     },
     btn: {
-        color: '#0074D9'
+        color: '#0074D9',
     },
     btnTxt: {
         paddingLeft: 20,
         paddingRight: 20,
-        color: 'white'
+        color: 'white',
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        borderColor: 'grey',
+        borderColor: '#c5c6c9',
         borderTopWidth: 1,
-        borderRadius: 1
+        borderRadius: 1,
     },
 });
 

@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { Icon } from 'native-base';
+import { DatePicker, Icon, Row } from 'native-base';
 import { Button, Card, CardItem } from 'native-base';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -37,7 +37,11 @@ class JournalView extends Component<Props, State> {
     // tslint:disable jsx-no-multiline-js
     renderMeals(): Element | undefined {
         const chosenDayJournal = this.props.dateJournal.get(this.state.chosenDate);
-        return chosenDayJournal && <View>{chosenDayJournal.map(this.renderMeal).toList()}</View>;
+        return (
+            chosenDayJournal && (
+                <View style={{ margin: 10 }}>{chosenDayJournal.map(this.renderMeal).toList()}</View>
+            )
+        );
     }
 
     renderMeal = (v: Map<string, ProductEntity>, k: string): Element => {
@@ -103,18 +107,68 @@ class JournalView extends Component<Props, State> {
     calculateSingleMacro = (inputValue: number, count: number) =>
         Math.round((inputValue / 100) * count * 100) / 100;
 
+    renderDatepickerRow = (): Element => {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    margin: 5,
+                }}
+            >
+                <DatePicker
+                    defaultDate={new Date()}
+                    minimumDate={new Date(2018, 1, 1)}
+                    maximumDate={new Date()}
+                    locale={'pl'}
+                    timeZoneOffsetInMinutes={undefined}
+                    modalTransparent={false}
+                    animationType={'fade'}
+                    androidMode={'default'}
+                    placeHolderText="Wybierz datę"
+                    textStyle={{ color: 'blue' }}
+                    placeHolderTextStyle={{ color: 'black' }}
+                    onDateChange={this.setDate}
+                    disabled={false}
+                />
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                    }}
+                >
+                    <Button
+                        info
+                        onPress={this.props.showProfileView}
+                        style={{ marginLeft: 5, marginRight: 5 }}
+                    >
+                        <Icon name="body" />
+                    </Button>
+                    <Button
+                        info
+                        onPress={this.props.showNewMealOverlay}
+                        style={{ marginLeft: 5, marginRight: 5 }}
+                    >
+                        <Icon name="add" />
+                    </Button>
+                </View>
+            </View>
+        );
+    };
+
+    setDate = (date: any): void => {
+        console.log(date);
+    };
+
     render(): JSX.Element {
         const currentLimits = this.calculateCurrentLimits();
         return (
             <View style={styles.container}>
+                {this.renderDatepickerRow()}
                 <LimitBars userLimits={this.props.limits} currentLimits={currentLimits} />
                 {this.renderMeals()}
-                <TouchableOpacity style={styles.fab2} onPress={this.props.showProfileView}>
-                    <Icon style={styles.icon} name="body" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.fab} onPress={this.props.showNewMealOverlay}>
-                    <Icon style={styles.icon} name="add" />
-                </TouchableOpacity>
                 {/*this.renderCommercialBanner()*/}
             </View>
         );

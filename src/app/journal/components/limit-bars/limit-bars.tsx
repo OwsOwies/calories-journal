@@ -22,7 +22,7 @@ const round = (number: number) => Math.round(number * 100) / 100;
 
 /*tslint:disable jsx-no-multiline-js */
 export const LimitBars: SFC<Props> = props => (
-    <View>
+    <View style={{ margin: 10 }}>
         <View style={styles.row}>
             <Text style={styles.descTxt}>Kalorie</Text>
             <View style={styles.barContainer}>
