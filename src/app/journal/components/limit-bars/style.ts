@@ -1,6 +1,6 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const barHeight = 40;
+const barHeight = 20;
 
 const blue = 'green';
 const navy = 'grey';
@@ -9,7 +9,7 @@ const styles = EStyleSheet.create({
     descTxt: {
         width: 110,
         color: 'black',
-        paddingTop: 8,
+        lineHeight: 20,
         fontWeight: 'bold'
     },
     barContainer: {
@@ -32,15 +32,15 @@ const styles = EStyleSheet.create({
         alignSelf: 'stretch',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: 10,
+        margin: 5,
     },
     text: {
         alignSelf: 'center',   
         color: 'white',
-        fontSize: 17,
+        fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 8
+        lineHeight: 20,
     },
 });
 

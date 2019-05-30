@@ -116,7 +116,7 @@ class JournalView extends Component<Props, State> {
                 <TouchableOpacity style={styles.fab} onPress={this.props.showNewMealOverlay}>
                     <Icon style={styles.icon} name="add" />
                 </TouchableOpacity>
-                {this.renderCommercialBanner()}
+                {/*this.renderCommercialBanner()*/}
             </View>
         );
     }

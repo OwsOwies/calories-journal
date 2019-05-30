@@ -97,7 +97,7 @@ class ChooseProductView extends Component<Props, State> {
                 </View>
                 <View style={styles.content}>
                     {this.renderlist()}
-                    {this.renderCommercialBanner()}
+                    {/*this.renderCommercialBanner()*/}
                 </View>
             </View>
         );

@@ -1,6 +1,7 @@
-import { Button, Card, CardItem, Icon, Input, Item, Text } from 'native-base';
+import { Button, Card, CardItem, Input, Item, Text } from 'native-base';
 import React, { Component } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { NativeEventEmitter, NativeModules, TouchableWithoutFeedback, View } from 'react-native';
+import BleManager from 'react-native-ble-manager';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -16,6 +17,9 @@ import {
 } from '../../selectors';
 
 import styles from './style';
+
+const BleManagerModule = NativeModules.BleManager;
+const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
 interface Props {
     choosenMealName: string;
@@ -36,6 +40,7 @@ class WeightingView extends Component<Props, State> {
     // tslint:disable no-any
     _interval: any;
     _inputRef: Input | null = null;
+    connected = false;
 
     constructor(props: Props) {
         super(props);
@@ -47,6 +52,79 @@ class WeightingView extends Component<Props, State> {
             currentProductIndex: 0,
         };
     }
+
+    componentWillMount(): void {
+        bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', args => {
+            // The id: args.id
+            // The name: args.name
+            if (!this.connected && args.name === 'Electronic Scale') {
+                //this.connected = true;
+                console.log('device', args.advertising);
+                /**
+                BleManager.connect(args.id)
+                    .then(() => {
+                        console.log('connected');
+                        return BleManager.retrieveServices(args.id, args.advertising.serviceUUIDs);
+                    })
+                    .then(peripheralInfo => {
+                        console.log('peripheral info', peripheralInfo);
+                        console.log('try bonding');
+                        return BleManager.createBond(args.id);
+                        /*return BleManager.startNotification(
+                            args.id,
+                            args.advertising.serviceUUIDs[0],
+                            peripheralInfo.characteristics[17].characteristic,
+                        );
+                        /*
+                        return this.subscribeToCharacteristics(
+                            args.id,
+                            args.advertising.serviceUUIDs[0],
+                            peripheralInfo.characteristics,
+                        );
+                    })
+                    .then(() => {
+                        console.log('bonded');
+                        bleManagerEmitter.addListener(
+                            'BleManagerDidUpdateValueForCharacteristic',
+                            a => {
+                                console.log('characterisric change', a.characteristic, a);
+                            },
+                        );
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    }); */
+            }
+        });
+
+        console.log('will mount');
+        BleManager.start({ showAlert: false })
+            .then(() => {
+                // Success code
+                console.log('Module initialized');
+                return BleManager.scan([], 10000, true);
+            })
+            .then(() => {
+                console.log('scan started');
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
+    /*
+    subscribeToCharacteristics(peripheralId: string, serviceUUID: string, list: any[]): void {
+        list.forEach(characteristic => {
+            console.log(characteristic.characteristic);
+            BleManager.startNotification(peripheralId, serviceUUID, characteristic.characteristic)
+                .then(() => {
+                    console.log('characteristic succ', characteristic.characteristic);
+                })
+                .catch(err => {
+                    console.log('characteristic err', err);
+                });
+        });
+    }*/
 
     componentWillUnmount(): void {
         clearInterval(this._interval);
@@ -124,7 +202,7 @@ class WeightingView extends Component<Props, State> {
                 </Item>
                 <Card>
                     <CardItem header style={styles.row}>
-                        <Text style={styles.cellL}/>
+                        <Text style={styles.cellL} />
                         <Text style={styles.cell}>Aktualne</Text>
                         <Text style={styles.cell}>na 100g</Text>
                     </CardItem>
