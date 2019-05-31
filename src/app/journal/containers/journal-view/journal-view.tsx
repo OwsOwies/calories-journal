@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import { DatePicker, Icon, Row } from 'native-base';
 import { Button, Card, CardItem } from 'native-base';
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -41,7 +41,9 @@ class JournalView extends Component<Props, State> {
         const chosenDayJournal = this.props.dateJournal.get(this.state.chosenDate);
         return (
             chosenDayJournal && (
-                <View style={{ margin: 10 }}>{chosenDayJournal.map(this.renderMeal).toList()}</View>
+                <ScrollView style={{ margin: 10 }}>
+                    {chosenDayJournal.map(this.renderMeal).toList()}
+                </ScrollView>
             )
         );
     }
@@ -52,9 +54,13 @@ class JournalView extends Component<Props, State> {
             <Card key={k}>
                 <View style={styles.meal}>
                     <Text>{k}</Text>
-                    <Button rounded style={styles.btn} onPress={showChooseProductModal}>
-                        <Text style={styles.btnTxt}>Dodaj produkt</Text>
-                    </Button>
+                    {this.state.today === this.state.chosenDate ? (
+                        <Button rounded style={styles.btn} onPress={showChooseProductModal}>
+                            <Text style={styles.btnTxt}>Dodaj produkt</Text>
+                        </Button>
+                    ) : (
+                        <View />
+                    )}
                 </View>
                 {this.renderProductEntities(v).toList()}
             </Card>
