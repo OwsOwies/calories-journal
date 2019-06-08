@@ -9,6 +9,7 @@ import { AppState } from '../../../store';
 import { ActionDispatcher } from '../../../store';
 import { AddToMeal, FinishWeighting } from '../../actions';
 import { Product, ProductEntity, Recipe } from '../../models';
+import { compileState } from '../../models/parse-weight';
 import {
     getChoosenMealName,
     getWeightingProduct,
@@ -55,45 +56,16 @@ class WeightingView extends Component<Props, State> {
 
     componentWillMount(): void {
         bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', args => {
-            // The id: args.id
-            // The name: args.name
-            if (!this.connected && args.name === 'Electronic Scale') {
-                //this.connected = true;
-                console.log('device', args.advertising);
-                /**
-                BleManager.connect(args.id)
-                    .then(() => {
-                        console.log('connected');
-                        return BleManager.retrieveServices(args.id, args.advertising.serviceUUIDs);
-                    })
-                    .then(peripheralInfo => {
-                        console.log('peripheral info', peripheralInfo);
-                        console.log('try bonding');
-                        return BleManager.createBond(args.id);
-                        /*return BleManager.startNotification(
-                            args.id,
-                            args.advertising.serviceUUIDs[0],
-                            peripheralInfo.characteristics[17].characteristic,
-                        );
-                        /*
-                        return this.subscribeToCharacteristics(
-                            args.id,
-                            args.advertising.serviceUUIDs[0],
-                            peripheralInfo.characteristics,
-                        );
-                    })
-                    .then(() => {
-                        console.log('bonded');
-                        bleManagerEmitter.addListener(
-                            'BleManagerDidUpdateValueForCharacteristic',
-                            a => {
-                                console.log('characterisric change', a.characteristic, a);
-                            },
-                        );
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    }); */
+            // console.log('disc', args);
+            if (args.name === 'TJLSCALE') {
+                try {
+                    let adData = new Uint8Array(args.advertising.manufacturerData.bytes);
+                    adData = adData.slice(8, 17);
+                    const state = compileState(adData);
+                    this.setState({ count: state.measurement });
+                } catch (e) {
+                    console.error(e);
+                }
             }
         });
 
@@ -105,7 +77,7 @@ class WeightingView extends Component<Props, State> {
                 return BleManager.scan([], 10000, true);
             })
             .then(() => {
-                console.log('scan started');
+                console.log('scan startedff');
             })
             .catch(e => {
                 console.log(e);
